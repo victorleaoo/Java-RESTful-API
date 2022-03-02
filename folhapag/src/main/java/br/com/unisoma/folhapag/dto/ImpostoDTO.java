@@ -7,7 +7,11 @@ public class ImpostoDTO {
 	public ImpostoDTO(Long cpf, Double imposto) {
 		super();
 		this.cpf = cpf;
-		this.imposto = imposto.toString();
+		if(imposto == 0.0) {
+			this.imposto = "Isento";
+		} else {
+			this.imposto = "R$ " + imposto.toString();
+		}
 	}
 	
 	public Long getCpf() {

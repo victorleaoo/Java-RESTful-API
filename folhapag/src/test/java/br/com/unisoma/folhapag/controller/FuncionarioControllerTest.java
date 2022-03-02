@@ -2,22 +2,26 @@ package br.com.unisoma.folhapag.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import org.apache.catalina.connector.Response;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import br.com.unisoma.folhapag.dto.NovoSalarioDTO;
 import br.com.unisoma.folhapag.model.Funcionario;
 import br.com.unisoma.folhapag.service.FuncionarioService;
 import br.com.unisoma.folhapag.service.SalarioService;
@@ -63,7 +67,10 @@ class FuncionarioControllerTest {
 	
 	@Test
 	void testSalario() {
-		Integer perc = salarioService.percentualReajuste(SALARIO);
+		ResponseEntity<NovoSalarioDTO> response = controller.getFuncionarioByCpf(CPF);
+		assertNotNull(response);
+		NovoSalarioDTO novoSalario = (NovoSalarioDTO)response.getBody();
+		assertEquals(4, novoSalario.getPercentual());
 	}
 	
 	@Test

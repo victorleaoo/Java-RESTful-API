@@ -30,7 +30,7 @@ public class FuncionarioController {
         this.salarioService = salarioService;
     }
 
-	@PostMapping("/cadastrar")
+	@PostMapping("/api/cadastrar")
 	public ResponseEntity<Funcionario> cadastrar(@RequestParam(value = "name") String name, 
 			@RequestParam(value = "cpf") Long cpf,
 			@RequestParam(value = "dataNascimento") String dataNasc,
@@ -46,7 +46,7 @@ public class FuncionarioController {
 		}
 	}
 	
-	@GetMapping("/listar")
+	@GetMapping("/api/listar")
 	public ResponseEntity<List<Funcionario>> getAllFuncionario() {
 		try {
 			List<Funcionario> funcis = funciService.findAll();
@@ -60,7 +60,7 @@ public class FuncionarioController {
 		}
 	}
 	
-	@GetMapping("/novoSalario/{cpf}")
+	@GetMapping("/api/novoSalario/{cpf}")
 	public ResponseEntity<NovoSalarioDTO> getFuncionarioByCpf(@PathVariable("cpf") Long cpf) {
 		Optional<Funcionario> funciData = funciService.findByCpf(cpf);
 		if (funciData.isPresent()) {
@@ -75,7 +75,7 @@ public class FuncionarioController {
 		}
 	}
 	
-	@GetMapping("/imposto/{cpf}")
+	@GetMapping("/api/imposto/{cpf}")
 	public ResponseEntity<ImpostoDTO> impostoFuncionarioByCpf(@PathVariable("cpf") Long cpf){
 		Optional<Funcionario> funciData = funciService.findByCpf(cpf);
 		if(funciData.isPresent()) {
