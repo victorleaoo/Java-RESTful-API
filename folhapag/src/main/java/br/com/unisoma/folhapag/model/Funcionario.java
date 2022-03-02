@@ -1,32 +1,52 @@
 package br.com.unisoma.folhapag.model; 
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-// DTO
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "funcionario")
 public class Funcionario {
-	private final String nome;
-	private final Long cpf;
-	private final LocalDate dataNascimento;
-	private final String telefone;
-	private final String endereco;
-	private final Double salario;
 	
-	public Funcionario(String nome, Long cpf, String dataNascimento, String telefone, String endereco,
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+
+	@Column(name = "nome")
+	private String nome;
+	@Column(name = "cpf", unique = true)
+	private Long cpf;
+	@Column(name = "dataNascimento")
+	private LocalDate dataNascimento;
+	@Column(name = "telefone")
+	private String telefone;
+	@Column(name = "endereco")
+	private String endereco;
+	@Column(name = "salario")
+	private Double salario;
+	
+	public Funcionario() {
+		super();
+	}
+	
+	public Funcionario(String nome, Long cpf, LocalDate dataNascimento, String telefone, String endereco,
 			Double salario) {
 		super();
 		this.nome = nome;
 		this.cpf = cpf;
-		this.dataNascimento = strToDate(dataNascimento);
+		this.dataNascimento = dataNascimento;
 		this.telefone = telefone;
 		this.endereco = endereco;
 		this.salario = salario;
 	}
 	
-	private LocalDate strToDate(String str) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate dateTime = LocalDate.parse(str, formatter);
-		return dateTime;
+	public Integer getId() {
+		return id;
 	}
 
 	public String getNome() {
@@ -51,6 +71,10 @@ public class Funcionario {
 
 	public Double getSalario() {
 		return salario;
+	}
+
+	public void setSalario(Double salario) {
+		this.salario = salario;
 	}
 	
 }
