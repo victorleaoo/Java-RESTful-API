@@ -41,13 +41,7 @@ public class FuncionarioService {
 		return dateTime;
 	}
 
-	public void atualizar(Integer id, Double salario) {
-		Optional<Funcionario> funcionario = repository.findById(id);
-		if(funcionario.isPresent()) {
-			Funcionario entity = funcionario.get();
-			entity.setSalario(salario);
-			repository.save(entity);
-		}
+	public void atualizar(Funcionario funcionario) {
+		repository.save(funcionario);
 	}
-
 }

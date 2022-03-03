@@ -28,7 +28,7 @@ public class SalarioService {
 		return 4;
 	}
 	
-	public static double calculoImposto(double salario) {
+	public double calculoImposto(double salario) {
 		
 		if(salario <= FAIXA_1) {
 			return 0.0; // isento

@@ -1,18 +1,22 @@
 package br.com.unisoma.folhapag.dto;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class NovoSalarioDTO {
 	
 	private final Long cpf;
-	private final Double salario;
-	private final Double reajuste;
+	private final String salario;
+	private final String reajuste;
 	private final Integer percentual; 
+	private static final NumberFormat nf = NumberFormat.getNumberInstance(new Locale("pt", "BR"));
 	
-	public NovoSalarioDTO(Long cpf, Double salario, Integer percentual) {
+	public NovoSalarioDTO(Long cpf, Double salario, Integer percentual, Double novoSalario) {
 		super();
-		Double novoSalario = salario * (1 + ((double)percentual/100));
+		nf.setMaximumFractionDigits(2);
 		this.cpf = cpf;
-		this.salario = novoSalario;
-		this.reajuste = novoSalario - salario;
+		this.salario = nf.format(novoSalario);
+		this.reajuste = nf.format(novoSalario - salario);
 		this.percentual = percentual;
 	}
 
@@ -20,11 +24,11 @@ public class NovoSalarioDTO {
 		return cpf;
 	}
 
-	public Double getSalario() {
+	public String getSalario() {
 		return salario;
 	}
 
-	public Double getReajuste() {
+	public String getReajuste() {
 		return reajuste;
 	}
 
